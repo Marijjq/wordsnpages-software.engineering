@@ -15,7 +15,6 @@ use App\Http\Controllers\Backend\CartController;
 use App\Http\Controllers\Frontend\AuthorHomeController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\CheckOutController;
-use App\Http\Controllers\Backend\PaymentController;
 
 
 
@@ -47,7 +46,8 @@ require __DIR__.'/auth.php';
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/books/{book}/book-detail', [BookController::class, 'bookDetails'])
     ->name('books.book-detail');
-
+Route::get('/category/{category}/books', [BookController::class, 'booksByCategory'])
+    ->name('books.by.category');
 Route::get('/autorsHome', [AuthorHomeController::class, 'index'])->name('authorsHome');
 Route::get('/authors/{author}/detail', [AuthorHomeController::class, 'authorDetails'])->name('authorDetails');
 
@@ -61,10 +61,6 @@ Route::get('remove-book/{rowId}', [CartController::class, 'removeBook'])->name('
 Route::get('/clear-cart', [CartController::class, 'clearCart'])->name('clear-cart');
 
 
-
-Route::get('/category/{category}/books', [BookController::class, 'booksByCategory'])
-    ->name('books.by.category');
-
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::group(['middleware'=> ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
@@ -74,10 +70,8 @@ Route::group(['middleware'=> ['auth', 'verified'], 'prefix' => 'user', 'as' => '
    //User Address
     Route::resource('address', UserAddressController::class);
     //Checkout 
-      Route::get('checkout', [CheckoutController::class, 'checkout'])->name('user.checkout');
-        Route::post('checkout/address', [CheckoutController::class, 'createAddress'])->name('checkout.address.create');
-        //Route::post('checkout/form-submit', [CheckoutController::class, 'checkOutFormSubmit'])->name('checkout.form-submit');
-        //Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+    Route::get('checkout', [CheckoutController::class, 'checkout'])->name('user.checkout');
+    Route::post('checkout/address', [CheckoutController::class, 'createAddress'])->name('checkout.address.create');
     
     
     });

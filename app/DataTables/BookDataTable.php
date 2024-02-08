@@ -22,7 +22,7 @@ class BookDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.books.edit', $query->ISBN) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='".route('admin.books.destroy', $query->ISBN)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-                $moreBtn = "<a href='".route('admin.books.show', $query->ISBN)."' class='btn btn-info'><i class='far fa-edit'></i></a>";
+                $moreBtn = "<a href='".route('admin.books.show', $query->ISBN)."' class='btn btn-info'><i class='fas fa-search'></i></a>";
 
                 
                 return $editBtn . $deleteBtn . $moreBtn;

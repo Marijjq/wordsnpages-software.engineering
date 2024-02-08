@@ -9,7 +9,7 @@
             <div class="col-xl-2 col-7 col-md-8 col-lg-2 mt-0">
                 <div class="wsus_logo_area text-center">
                     <a class="wsus__header_logo" href="<?php echo e(route('home')); ?>">
-                        <img src="<?php echo e(asset('frontend\images\logo1.png')); ?>" alt="logo" class="img-fluid">
+                        <img src="<?php echo e(asset('frontend\images\logo.png')); ?>" alt="logo" class="img-fluid">
                     </a>
                 </div>
             </div>

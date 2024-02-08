@@ -95,7 +95,7 @@
                             <p>Delivery: <span>${{ number_format($tax, 2) }}</span></p>
                             <p><b>Total:</b> <span>${{ number_format($total, 2) }}</span></p>
                             <!-- Checkout Form -->
-                            <form action="{{ route('stripe.payment') }}" method="POST">
+                            <form action="{{ route('admin.stripe.payment') }}" method="POST">
                                 @csrf
                                 <!-- Include hidden input field for total price -->
                                 <input type="hidden" name="total" value="{{ $total }}">

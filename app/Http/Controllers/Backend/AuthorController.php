@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Author;
+use App\DataTables\AuthorDataTable;
 use File;
 
 class AuthorController extends Controller
@@ -12,10 +13,9 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AuthorDatatable $dataTable)
     {
-        $authors = Author::all();
-        return view('admin.authors.index', compact('authors'));
+        return $dataTable->render('admin.books.index');
     }
 
     /**
@@ -126,7 +126,7 @@ class AuthorController extends Controller
         $author = Author::findOrFail($id);
         $author->delete();
 
-        return redirect()->route('admin.authors.index')->with('success', 'Author deleted successfully!');
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
   

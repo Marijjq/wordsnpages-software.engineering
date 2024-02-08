@@ -79,7 +79,7 @@
                     <p>Tax ${{ number_format($tax, 2) }} (15%)</p>
                     <p>Total: ${{ number_format($subtotal + $tax, 2) }}</p>
                 </div>
-                <a class="common_btn mt-4 w-100 text-center" href="{{ route('user.checkout') }}">Checkout</a>
+                <a class="common_btn mt-4 w-100 text-center" href="{{ route('user.user.checkout') }}">Checkout</a>
                 <a class="common_btn mt-1 w-100 text-center" href="{{ route('shop') }}"><i class="fab fa-shopify" aria-hidden="true"></i> Go Shop</a>
             </div>
             <div id="sticky_sidebar" class="wsus__cart_list_footer_button jquery-stickit-spacer" style="height: 438.4px; visibility: hidden !important; display: none !important;"></div>

@@ -156,7 +156,8 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->delete();
         
-        return redirect()->route('admin.books.index');    }
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+    }
 
 
     public function booksByCategory($categoryId)

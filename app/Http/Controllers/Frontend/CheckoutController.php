@@ -54,7 +54,7 @@ class CheckoutController extends Controller
 
         // Create a new user address instance
         $address = new UserAddress();
-        $address->user_id = $user->userId;
+        $address->user_id = $user->id;
         $address->name = $request->input('name');
         $address->phone = $request->input('phone');
         $address->email = $request->input('email');
@@ -65,7 +65,7 @@ class CheckoutController extends Controller
         $address->address = $request->input('address');
         $address->save();
 
-        // Redirect back with success message
-        return redirect()->back()->with('success', 'Address saved successfully');
+        // Redirect to the payment page
+        return redirect()->route('admin.stripe.payment');
     }
 }

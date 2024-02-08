@@ -77,7 +77,7 @@
                             <p>Delivery: <span>$<?php echo e(number_format($tax, 2)); ?></span></p>
                             <p><b>Total:</b> <span>$<?php echo e(number_format($total, 2)); ?></span></p>
                             <!-- Checkout Form -->
-                            <form action="<?php echo e(route('stripe.payment')); ?>" method="POST">
+                            <form action="<?php echo e(route('admin.stripe.payment')); ?>" method="POST">
                                 <?php echo csrf_field(); ?>
                                 <!-- Include hidden input field for total price -->
                                 <input type="hidden" name="total" value="<?php echo e($total); ?>">

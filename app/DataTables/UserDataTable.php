@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Author;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class AuthorDataTable extends DataTable
+class UserDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,25 +22,18 @@ class AuthorDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('action', function ($query) {
-            $editBtn = "<a href='" . route('admin.authors.edit', $query->authorId) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-            $deleteBtn = "<a href='".route('admin.authors.destroy', $query->authorId)."' class='btn btn-danger ml-2 delete-item'><i class='far fa-trash-alt'></i></a>";
-            $moreBtn = "<a href='".route('admin.authors.show', $query->authorId)."' class='btn btn-info'><i class='fas fa-search'></i></a>";
-
-            
-            return $editBtn . $deleteBtn . $moreBtn;
-        })
         ->addColumn('image', function ($query) {
-            return '<img src="' . asset($query->image) . '" alt="Book Image" style="max-width: 100px;">';
+            return '<img src="' . asset($query->image) . '" alt="User Image" style="max-width: 100px;">';
         })
         ->rawColumns(['action','image'])
         ->setRowId('id');
     }
 
+
     /**
      * Get the query source of dataTable.
      */
-    public function query(Author $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -51,7 +44,7 @@ class AuthorDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('author-table')
+                    ->setTableId('user-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -73,18 +66,16 @@ class AuthorDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('authorId'),
-            Column::make('image'),
-            Column::make('name'),
-            Column::make('surname'),
-            Column::make('bio'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(120)
-                ->addClass('text-center'),
+            Column::make('userId')->title('ID')->width('60px'),
+            Column::make('image')->title('Image')->width('100px'),
+            Column::make('name')->title('Name'),
+            Column::make('username')->title('Username'),
+            Column::make('phone')->title('Phone'),
+            Column::make('email')->title('Email'),
+            Column::make('email_verified_at')->title('Email Verified At'),
+            Column::make('role')->title('Role'),
+            Column::make('created_at')->title('Created At'),
+            Column::make('updated_at')->title('Updated At'),
         ];
     }
 
@@ -93,6 +84,6 @@ class AuthorDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Author_' . date('YmdHis');
+        return 'User_' . date('YmdHis');
     }
 }

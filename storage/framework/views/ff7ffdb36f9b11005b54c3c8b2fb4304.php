@@ -26,6 +26,11 @@
                                         Clear Cart
                                     </th>
                                 </tr>
+                                <?php
+                                $subtotal = 0;
+                                $taxRate = 0.15; // 15%
+                                $tax = 0;
+                                ?>
                                 <?php $__currentLoopData = $cartItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cartItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="d-flex">
                                         <td class="wsus__pro_img">
@@ -45,15 +50,20 @@
                                         </td>
                                         
                                         <td class="wsus__pro_tk">
-                                            <h6>$<?php echo e(number_format($cartItem->quantity * $cartItem->book->init_price, 2)); ?></h6>
+                                            <?php
+                                            // Calculate the price for the current item
+                                            $price = $cartItem->quantity * $cartItem->book->init_price;
+                                            // Add to subtotal
+                                            $subtotal += $price;
+                                            // Calculate tax for the current item
+                                            $tax += $price * $taxRate;
+                                            ?>
+                                            <h6>$<?php echo e(number_format($price, 2)); ?></h6>
                                         </td>
                                         <td class="wsus__pro_icon">
                                             <a href="<?php echo e(route('remove-book', $cartItem->id)); ?>"><i class="far fa-times" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
-
-
-                                    
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
@@ -61,35 +71,13 @@
                 </div>
             </div>
             <div class="col-xl-3" style="position: relative;">
-                <?php
-                $subtotal = 0;
-                $taxRate = 0.15; // 15%
-                $tax = 0;
-            
-                foreach ($cartItems as $cartItem) {
-                    $subtotal += $cartItem->quantity * $cartItem->book->init_price;
-                    // Calculate tax based on subtotal (price)
-                    $tax += $cartItem->quantity * $cartItem->book->init_price * $taxRate;
-                }
-            
-                $total = $subtotal + $tax;
-            
-                // Round the values to two decimal places
-                $subtotal = round($subtotal, 2);
-                $tax = round($tax, 2);
-                $total = round($total, 2);
-            ?> 
-            
-            <div class="wsus__cart_list_footer_button" id="sticky_sidebar" style="will-change: transform; transform: translateZ(0px);">
-                <h6>Total Cart</h6>
-                <p>Subtotal $<?php echo e($subtotal); ?></p>
-                <p>Tax $<?php echo e($tax); ?> (15%)</p>
-                <p>Total: $<?php echo e($total); ?></p>
-            </div>
-            
-            
-            
-                <a class="common_btn mt-4 w-100 text-center" href="<?php echo e(route('user.checkout')); ?>">Checkout</a>
+                <div class="wsus__cart_list_footer_button" id="sticky_sidebar" style="will-change: transform; transform: translateZ(0px);">
+                    <h6>Total Cart</h6>
+                    <p>Subtotal $<?php echo e(number_format($subtotal, 2)); ?></p>
+                    <p>Tax $<?php echo e(number_format($tax, 2)); ?> (15%)</p>
+                    <p>Total: $<?php echo e(number_format($subtotal + $tax, 2)); ?></p>
+                </div>
+                <a class="common_btn mt-4 w-100 text-center" href="<?php echo e(route('user.user.checkout')); ?>">Checkout</a>
                 <a class="common_btn mt-1 w-100 text-center" href="<?php echo e(route('shop')); ?>"><i class="fab fa-shopify" aria-hidden="true"></i> Go Shop</a>
             </div>
             <div id="sticky_sidebar" class="wsus__cart_list_footer_button jquery-stickit-spacer" style="height: 438.4px; visibility: hidden !important; display: none !important;"></div>
@@ -98,8 +86,5 @@
     </div>
 </section>
 
-
-
 <?php $__env->stopSection(); ?>
-
 <?php echo $__env->make('frontend.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\stojk\laravel\wordsnpages\resources\views/frontend/pages/cart.blade.php ENDPATH**/ ?>
