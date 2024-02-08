@@ -7,7 +7,7 @@
     <ul class="dashboard_link">
       <li><a href="{{route('home')}}"><i class="fas fa-home"></i> Home</a></li>
       <li><a class="active" href="{{route('user.user.dashboard')}}"><i class="fas fa-tachometer"></i>Dashboard</a></li>
-      <li><a class="active" href="{{route('user.address.index')}}"><i class="fal fa-gift-card"></i> Addresses</a></li>
+      <li><a class="" href="{{route('user.address.index')}}"><i class="fal fa-gift-card"></i> Addresses</a></li>
       <li><a href="{{route('user.profile')}}""><i class="far fa-user"></i> My Profile</a></li>
       
       <li>

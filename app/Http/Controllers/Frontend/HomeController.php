@@ -21,12 +21,23 @@ class HomeController extends Controller
     {
         $query = $request->input('query');
     
+        // Convert the query to lowercase
+        $lowerQuery = strtolower($query);
+    
         // Search for books and authors based on the query
-        $books = Book::where('title', 'like', "%$query%")->get();
-        $authors = Author::where('name', 'like', "%$query%")->orWhere('surname', 'like', "%$query%")->get();
+        $books = Book::where('title', 'like', "%$query%")
+                     ->orWhereRaw('LOWER(title) LIKE ?', ["%$lowerQuery%"])
+                     ->get();
+    
+        $authors = Author::where('name', 'like', "%$query%")
+                         ->orWhere('name', 'like', "%$lowerQuery%")
+                         ->orWhere('surname', 'like', "%$query%")
+                         ->orWhere('surname', 'like', "%$lowerQuery%")
+                         ->get();
     
         return view('frontend.search.results', compact('books', 'authors', 'query'));
     }
+    
     
     public function bookDetails($id)
     {

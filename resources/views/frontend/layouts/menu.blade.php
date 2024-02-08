@@ -26,7 +26,6 @@
     
                         </ul>
                         <ul class="wsus__menu_item wsus__menu_item_right">
-                            <li><a href="contact.html">contact</a></li>
                             <li><a href="{{ auth()->check() && auth()->user()->isAdmin() ? route('admin.dashbaord') : route('user.user.dashboard') }}">my account</a></li>
                             <li><a href="{{route('login')}}">login</a></li>
                         </ul>
