@@ -37,21 +37,7 @@ class BookDataTable extends DataTable
             ->addColumn('category', function ($query) {
                 return $query->category->name;
             })
-            ->addColumn('status', function($query){
-                if($query->status == 1){
-                    $button = '<label class="custom-switch mt-2">
-                        <input type="checkbox" checked name="custom-switch-checkbox" data-id="'.$query->ISBN.'" class="custom-switch-input change-status" >
-                        <span class="custom-switch-indicator"></span>
-                    </label>';
-                }else {
-                    $button = '<label class="custom-switch mt-2">
-                        <input type="checkbox" name="custom-switch-checkbox" data-id="'.$query->ISBN.'" class="custom-switch-input change-status">
-                        <span class="custom-switch-indicator"></span>
-                    </label>';
-                }
-                return $button;
-            })
-            ->rawColumns(['image', 'action','status'])
+            ->rawColumns(['image', 'action'])
             ->setRowId('id');
 
 
@@ -100,7 +86,6 @@ class BookDataTable extends DataTable
             Column::make('publishing_year')->width('100px'),
             Column::make('init_price')->width('100px'),
             Column::make('quantity')->width('100px'),
-            Column::make('status')->width('100px'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

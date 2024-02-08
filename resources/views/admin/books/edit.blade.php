@@ -70,13 +70,7 @@
                             <label for="quantity">Quantity:</label>
                             <input type="number" name="quantity" value="{{ old('quantity', $book->quantity) }}" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="inputState">Status</label>
-                            <select id="inputState" class="form-control" name="status">
-                              <option value="1">Available</option>
-                              <option value="0">Unavailable</option>
-                            </select>
-                          </div>
+                       
                         <button type="submit" class="btn btn-primary">Update Book</button>
                     </form>
                 </div>
